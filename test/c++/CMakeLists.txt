@@ -6,11 +6,17 @@ endforeach()
 
 # List of all tests
 file(GLOB_RECURSE all_tests RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
+
+# remove tests from optional, unused, components
 option(Use_Cuda "Use CUDA library" OFF)
 if(NOT  Use_Cuda)
 list(REMOVE_ITEM all_tests "nda_cublas.cpp")
 list(REMOVE_ITEM all_tests "nda_culapack.cpp")
 list(REMOVE_ITEM all_tests "nda_cuda.cpp")
+endif()
+option(Use_Tblis "Use TBLIS library" OFF)
+if(NOT  Use_Tblis)
+list(REMOVE_ITEM all_tests "nda_tblis.cpp")
 endif()
 
 macro(SetUpAllTestWithMacroDef extension macrodef)

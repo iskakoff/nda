@@ -64,16 +64,16 @@ install(TARGETS blas_lapack EXPORT ${PROJECT_NAME}-targets)
 
 # ========= CudaRT, CuBLAS, CuSolver & CuTensor ==========
 
-message(STATUS "-------- CUDAToolkit detection -------------")
 #option(Use_Cuda "Use CUDA library" OFF)
 if(Use_Cuda)
+  message(STATUS "-------- CUDAToolkit detection -------------")
   find_package(CUDAToolkit REQUIRED 11)
   target_link_libraries(${PROJECT_NAME}_c PUBLIC CUDA::cudart CUDA::cublas CUDA::cusolver)
   target_compile_definitions(${PROJECT_NAME}_c PUBLIC NDA_HAVE_CUDA NDA_HAVE_DEVICE)
 
-  message(STATUS "-------- cutensor detection -------------")
   option(Use_Cutensor "Use cutensor library" OFF)
   if(Use_Cutensor)
+    message(STATUS "-------- cutensor detection -------------")
     if(NOT DEFINED ENV{CUTENSOR_ROOT} AND NOT DEFINED CUTENSOR_ROOT)
       message(FATAL_ERROR "CUTENSOR_ROOT not set!")
     endif() 
@@ -112,9 +112,9 @@ endif()
 
 # ========= Magma ==========
 
-message(STATUS "-------- Magma detection -------------")
 option(Use_Magma "Use Magma library" OFF)
 if(Use_Magma)
+  message(STATUS "-------- Magma detection -------------")
   find_package(Magma REQUIRED)
   target_link_libraries(${PROJECT_NAME}_c PUBLIC magma)
   target_compile_definitions(${PROJECT_NAME}_c PUBLIC NDA_HAVE_MAGMA)
@@ -123,9 +123,9 @@ endif()
 
 # ========= TBLIS ==========
 
-message(STATUS "-------- TBLIS detection -------------")
 option(Use_Tblis "Use TBLIS library" OFF)
 if(Use_Tblis)
+  message(STATUS "-------- TBLIS detection -------------")
   # no find package, :-(, doing it by hand
   if(NOT DEFINED TBLIS_ROOT AND DEFINED ENV{TBLIS_ROOT})
     set(TBLIS_ROOT $ENV{TBLIS_ROOT})
